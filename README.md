@@ -101,21 +101,6 @@ cp .env.example .env
 
 ---
 
-## 📱 Pair Site (for developers)
-
-Your public pair site:
-
-**https://YOUR-PAIR-SITE.onrender.com**
-
-To run the pair site yourself:
-
-```bash
-npm run pair
-# opens on http://localhost:3000
-```
-
----
-
 ## ✨ Features
 
 - Tag all group members (`.tagall`)
