@@ -147,7 +147,7 @@ npm run pair
   </a>
   &nbsp;
   <a href="https://wa.me/+966510806516" target="_blank">
-    <img src="https://img.shields.io/badge/CONTACT%20VIA20%20WHATSAPP-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp"/>
+    <img src="https://img.shields.io/badge/CONTACT%20VIA%20WHATSAPP-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp"/>
   </a>
 </p>
 
