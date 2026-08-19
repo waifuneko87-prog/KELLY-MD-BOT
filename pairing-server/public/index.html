@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KELLY-MD — Pair Device</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    :root {
+      --pink: #ff6bcb;
+      --purple: #a78bfa;
+      --cyan: #67e8f9;
+      --glass: rgba(15, 10, 30, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --text: #f8f7ff;
+      --muted: rgba(255,255,255,0.65);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow-x: hidden; }
+    body {
+      font-family: 'Quicksand', system-ui, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #0a0614;
+    }
+
+    /* ===== Anime video background ===== */
+    .bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      filter: brightness(0.45) saturate(1.15);
+    }
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(167, 139, 250, 0.25), transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(255, 107, 203, 0.2), transparent 45%),
+        linear-gradient(180deg, rgba(10,6,20,0.35) 0%, rgba(10,6,20,0.7) 100%);
+      pointer-events: none;
+    }
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 60% 70%, rgba(255,182,255,0.45), transparent),
+        radial-gradient(1px 1px at 80% 20%, rgba(180,220,255,0.5), transparent),
+        radial-gradient(2px 2px at 40% 80%, rgba(255,255,255,0.35), transparent);
+      background-size: 100% 100%;
+      animation: drift 28s linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes drift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-40px); }
+    }
+
+    /* ===== Card ===== */
+    .card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 420px;
+      background: var(--glass);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 28px 24px 22px;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(255,255,255,0.05) inset,
+        0 0 80px rgba(167, 139, 250, 0.12);
+      animation: floatIn 0.8s ease-out;
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .logo-wrap {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .logo {
+      width: 78px; height: 78px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 28px rgba(255, 107, 203, 0.35);
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 8px 28px rgba(255, 107, 203, 0.3); }
+      50% { box-shadow: 0 8px 40px rgba(167, 139, 250, 0.55); }
+    }
+    .title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: linear-gradient(90deg, #fff, var(--pink), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .music-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 16px 0 6px;
+    }
+    .music-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .music-btn:hover { background: rgba(255,107,203,0.3); transform: scale(1.05); }
+    .music-btn.playing { background: linear-gradient(135deg, var(--pink), var(--purple)); border-color: transparent; }
+    .music-label { font-size: 0.75rem; color: var(--muted); }
+
+    .toggle {
+      display: flex;
+      margin: 18px 0 16px;
+      background: rgba(0,0,0,0.35);
+      border-radius: 14px;
+      padding: 4px;
+      border: 1px solid var(--glass-border);
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 11px 10px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 11px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all 0.25s;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+    }
+    .toggle-btn.active {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(255, 107, 203, 0.35);
+    }
+
+    .input-group { margin-bottom: 14px; }
+    .input-group.hidden { display: none; }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input[type="text"]::placeholder { color: rgba(255,255,255,0.35); }
+    input[type="text"]:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(255, 107, 203, 0.2);
+    }
+
+    .btn-main {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 8px 24px rgba(255, 107, 203, 0.3);
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      margin-bottom: 12px;
+    }
+    .btn-main:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(255, 107, 203, 0.4);
+    }
+    .btn-main:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-main.hidden { display: none; }
+
+    .code-box {
+      background: rgba(0,0,0,0.4);
+      border: 1px dashed rgba(255,255,255,0.25);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      word-break: break-all;
+      font-family: 'Orbitron', monospace;
+    }
+    .code-box.ok { color: #4ade80; border-color: rgba(74, 222, 128, 0.4); }
+    .code-box.err { color: #f87171; font-size: 0.9rem; letter-spacing: 0; font-family: inherit; }
+
+    .qr-box {
+      display: none;
+      text-align: center;
+      margin-bottom: 12px;
+      padding: 16px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+    }
+    .qr-box img {
+      max-width: 220px;
+      width: 100%;
+      border-radius: 8px;
+    }
+    .qr-hint { color: #444; font-size: 0.8rem; margin-top: 8px; }
+
+    .btn-copy {
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+      margin-bottom: 8px;
+    }
+    .btn-copy:hover { background: rgba(255,255,255,0.15); }
+
+    .status {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      min-height: 22px;
+      margin: 8px 0 4px;
+    }
+    .hint {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 8px 0;
+    }
+    .loading i {
+      font-size: 1.4rem;
+      color: var(--pink);
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Tap to enable audio banner */
+    .audio-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(8, 5, 18, 0.75);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      cursor: pointer;
+      transition: opacity 0.4s;
+    }
+    .audio-gate.hide { opacity: 0; pointer-events: none; }
+    .audio-gate .play-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 0 40px rgba(255, 107, 203, 0.5);
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    .audio-gate p { color: #fff; font-weight: 600; font-size: 1rem; }
+    .audio-gate span { color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <!-- Anime background video (muted for autoplay policy) -->
+  <video class="bg-video" id="bgVideo" autoplay muted loop playsinline>
+    <!-- Aesthetic night / ambient loops (free stock). Swap URLs anytime. -->
+    <source src="https://cdn.coverr.co/videos/coverr-starry-night-sky-1583/1080p.mp4" type="video/mp4" />
+    <source src="https://cdn.coverr.co/videos/coverr-northern-lights-1584/1080p.mp4" type="video/mp4" />
+    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm" />
+  </video>
+  <div class="bg-overlay"></div>
+  <div class="particles"></div>
+
+  <!-- Relaxing music (starts after user tap — browser policy) -->
+  <audio id="bgMusic" loop preload="auto">
+    <!-- Soft lofi / relaxing ambient (public samples). Replace with your own if needed. -->
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="audio-gate" id="audioGate">
+    <div class="play-circle"><i class="fas fa-play"></i></div>
+    <p>Tap to enter</p>
+    <span>Music &amp; anime vibes unlock</span>
+  </div>
+
+  <div class="card">
+    <div class="logo-wrap">
+      <div class="logo"><i class="fas fa-robot"></i></div>
+      <h1 class="title">KELLY-MD</h1>
+      <p class="subtitle">Link your WhatsApp device</p>
+    </div>
+
+    <div class="music-bar">
+      <button type="button" class="music-btn" id="musicToggle" title="Toggle music">
+        <i class="fas fa-music"></i>
+      </button>
+      <span class="music-label" id="musicLabel">Music off</span>
+    </div>
+
+    <div class="toggle">
+      <button type="button" class="toggle-btn active" data-mode="pair">
+        <i class="fas fa-key"></i> Pair Code
+      </button>
+      <button type="button" class="toggle-btn" data-mode="qr">
+        <i class="fas fa-qrcode"></i> QR Code
+      </button>
+    </div>
+
+    <div class="input-group" id="inputGroup">
+      <label for="phone">WhatsApp number (with country code)</label>
+      <input type="text" id="phone" placeholder="917023951514" inputmode="numeric" autocomplete="tel" />
+    </div>
+
+    <button type="button" class="btn-main" id="submit">
+      <i class="fas fa-key"></i> Generate Pair Code
+    </button>
+
+    <div class="loading" id="loading"><i class="fas fa-spinner"></i></div>
+
+    <div class="code-box" id="codeDisplay">Your pair code will appear here</div>
+
+    <div class="qr-box" id="qrDisplay">
+      <img id="qrImage" src="" alt="QR Code" />
+      <div class="qr-hint">Scan with WhatsApp → Linked devices</div>
+    </div>
+
+    <button type="button" class="btn-copy" id="copyBtn">
+      <i class="fas fa-copy"></i> Copy Code
+    </button>
+
+    <div class="status" id="status"></div>
+    <p class="hint">
+      After linking, your <b>session ID</b> is sent to your WhatsApp DM.<br>
+      Paste it into the bot <code>session</code> file, then start the bot.
+    </p>
+    <div class="footer">© 2026 KELLY-MD · Session stays private</div>
+  </div>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    const video = document.getElementById('bgVideo');
+    const gate = document.getElementById('audioGate');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicLabel = document.getElementById('musicLabel');
+    let musicOn = false;
+
+    // Soft volume
+    music.volume = 0.35;
+
+    function tryPlayMedia() {
+      video.play().catch(() => {});
+      music.play().then(() => {
+        musicOn = true;
+        musicToggle.classList.add('playing');
+        musicLabel.textContent = 'Now playing · lofi vibes';
+      }).catch(() => {
+        musicOn = false;
+        musicLabel.textContent = 'Tap music icon to play';
+      });
+    }
+
+    gate.addEventListener('click', () => {
+      gate.classList.add('hide');
+      tryPlayMedia();
+      setTimeout(() => gate.remove(), 500);
+    });
+
+    musicToggle.addEventListener('click', () => {
+      if (musicOn) {
+        music.pause();
+        musicOn = false;
+        musicToggle.classList.remove('playing');
+        musicLabel.textContent = 'Music off';
+      } else {
+        music.play().then(() => {
+          musicOn = true;
+          musicToggle.classList.add('playing');
+          musicLabel.textContent = 'Now playing · lofi vibes';
+        }).catch(() => {
+          musicLabel.textContent = 'Could not play audio';
+        });
+      }
+    });
+
+    // Fallback video sources if first fails
+    video.addEventListener('error', () => {
+      if (!video.dataset.fallback) {
+        video.dataset.fallback = '1';
+        video.src = 'https://cdn.coverr.co/videos/coverr-northern-lights-1584/1080p.mp4';
+        video.play().catch(() => {});
+      }
+    });
+
+    // ===== Pairing logic =====
+    let currentMode = 'pair';
+    let currentCode = '';
+    let pollTimer = null;
+
+    const phoneEl = document.getElementById('phone');
+    const submitBtn = document.getElementById('submit');
+    const codeDisplay = document.getElementById('codeDisplay');
+    const qrDisplay = document.getElementById('qrDisplay');
+    const qrImage = document.getElementById('qrImage');
+    const loading = document.getElementById('loading');
+    const statusEl = document.getElementById('status');
+    const inputGroup = document.getElementById('inputGroup');
+    const copyBtn = document.getElementById('copyBtn');
+
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const mode = this.dataset.mode;
+        if (mode === currentMode) return;
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentMode = mode;
+        clearInterval(pollTimer);
+        currentCode = '';
+        codeDisplay.className = 'code-box';
+        codeDisplay.textContent = 'Your pair code will appear here';
+        qrDisplay.style.display = 'none';
+        codeDisplay.style.display = 'flex';
+        statusEl.textContent = '';
+
+        if (mode === 'pair') {
+          submitBtn.classList.remove('hidden');
+          submitBtn.innerHTML = '<i class="fas fa-key"></i> Generate Pair Code';
+          inputGroup.classList.remove('hidden');
+        } else {
+          submitBtn.classList.add('hidden');
+          inputGroup.classList.add('hidden');
+          startQR();
+        }
+      });
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      if (!currentCode) {
+        statusEl.textContent = 'No code to copy yet.';
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(currentCode.replace(/-/g, ''));
+        statusEl.textContent = 'Code copied (without dashes).';
+      } catch {
+        statusEl.textContent = 'Copy failed — select the code manually.';
+      }
+    });
+
+    submitBtn.addEventListener('click', async () => {
+      const raw = phoneEl.value.trim();
+      if (!raw) {
+        codeDisplay.className = 'code-box err';
+        codeDisplay.textContent = 'Please enter your WhatsApp number.';
+        return;
+      }
+      submitBtn.disabled = true;
+      loading.style.display = 'block';
+      codeDisplay.className = 'code-box';
+      codeDisplay.textContent = 'Requesting pair code…';
+      statusEl.textContent = '';
+      qrDisplay.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/pair', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: raw, mode: 'pair' })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to start pairing');
+        pollStatus(data.sessionId);
+      } catch (e) {
+        codeDisplay.className = 'code-box err';
+        codeDisplay.textContent = e.message;
+        submitBtn.disabled = false;
+      } finally {
+        loading.style.display = 'none';
+      }
+    });
+
+    async function startQR() {
+      loading.style.display = 'block';
+      codeDisplay.style.display = 'none';
+      qrDisplay.style.display = 'none';
+      statusEl.textContent = 'Generating QR…';
+      try {
+        const res = await fetch('/api/pair', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mode: 'qr' })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to start QR');
+        pollStatus(data.sessionId);
+      } catch (e) {
+        codeDisplay.style.display = 'flex';
+        codeDisplay.className = 'code-box err';
+        codeDisplay.textContent = e.message;
+        statusEl.textContent = '';
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    function pollStatus(id) {
+      clearInterval(pollTimer);
+      const tick = async () => {
+        try {
+          const res = await fetch('/api/status/' + encodeURIComponent(id));
+          const d = await res.json();
+          if (!res.ok) throw new Error(d.error || 'Session gone');
+
+          if (d.pairingCode) {
+            currentCode = d.pairingCode;
+            codeDisplay.className = 'code-box';
+            codeDisplay.textContent = d.pairingCode;
+            codeDisplay.style.display = 'flex';
+            qrDisplay.style.display = 'none';
+            statusEl.textContent = 'Enter this code in WhatsApp → Linked devices → Link with phone number';
+          }
+          if (d.qr) {
+            qrImage.src = d.qr;
+            qrDisplay.style.display = 'block';
+            codeDisplay.style.display = 'none';
+            statusEl.textContent = 'Scan the QR with WhatsApp → Linked devices';
+          }
+          if (d.status === 'connected' || d.status === 'session_sent') {
+            codeDisplay.className = 'code-box ok';
+            codeDisplay.style.display = 'flex';
+            codeDisplay.innerHTML = '<i class="fas fa-check-circle"></i>&nbsp; Session sent to WhatsApp!';
+            qrDisplay.style.display = 'none';
+            statusEl.textContent = 'Check your WhatsApp DM for the session ID.';
+            submitBtn.disabled = false;
+            clearInterval(pollTimer);
+          }
+          if (d.status === 'error') {
+            codeDisplay.className = 'code-box err';
+            codeDisplay.style.display = 'flex';
+            codeDisplay.textContent = d.error || 'Connection failed';
+            qrDisplay.style.display = 'none';
+            submitBtn.disabled = false;
+            clearInterval(pollTimer);
+          }
+        } catch (e) {
+          codeDisplay.className = 'code-box err';
+          codeDisplay.style.display = 'flex';
+          codeDisplay.textContent = e.message;
+          submitBtn.disabled = false;
+          clearInterval(pollTimer);
+        }
+      };
+      tick();
+      pollTimer = setInterval(tick, 2000);
+    }
+  </script>
+</body>
+</html>
