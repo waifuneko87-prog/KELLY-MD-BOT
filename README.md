@@ -9,11 +9,6 @@
   Group management • Media tools • AI • Stickers • Games • Automation
 </p>
 
-<p align="center">
-  <a href="https://YOUR-PAIR-SITE.onrender.com">
-    <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Easy%20Method-ff4d4d?style=for-the-badge" alt="Get Pair Code"/>
-  </a>
-</p>
 
 ---
 
@@ -168,9 +163,8 @@ npm run pair
 
 ## 📜 Credits
 
-- [Baileys](https://github.com/WhiskeySockets/Baileys) — WhatsApp Web API
-- Original KELLY-MD base
-- KELLY-MD — Session ID + Pair Website update
+- SONALI
+- MUAZ
 
 ---
 
