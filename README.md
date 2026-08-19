@@ -59,13 +59,6 @@ Click the button below to open the **KELLY-MD Pair Site**:
 
 ### Step 3: Deploy Now
 
-Choose one of the methods below:
-
-<p align="center">
-  <a href="https://youtu.be" target="_blank">
-    <img src="https://img.shields.io/badge/DEPLOY%20TUTORIAL-red?style=for-the-badge&logo=youtube" alt="Deploy Tutorial"/>
-  </a>
-  &nbsp;
   <a href="https://bot-hosting.net" target="_blank">
     <img src="https://img.shields.io/badge/DEPLOY%20ON%20PANEL-28a745?style=for-the-badge" alt="Deploy on Panel"/>
   </a>
@@ -147,14 +140,14 @@ npm run pair
 
 ---
 
-## 📞 Support / Join Us
+## 📞 Support
 
 <p align="center">
-  <a href="https://t.me" target="_blank">
+  <a href="t.me/sonali_sewvandi" target="_blank">
     <img src="https://img.shields.io/badge/JOIN%20TELEGRAM-2CA5E0?style=for-the-badge&logo=telegram" alt="Telegram"/>
   </a>
   &nbsp;
-  <a href="https://whatsapp.com/channel" target="_blank">
+  <a href="https://wa.me/+966510806516" target="_blank">
     <img src="https://img.shields.io/badge/JOIN%20WHATSAPP-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp"/>
   </a>
 </p>
