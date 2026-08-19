@@ -41,12 +41,11 @@ Click the button below to open the **KELLY-MD Pair Site**:
 
 **How to use the pair site:**
 
-1. Open → [https://YOUR-PAIR-SITE.onrender.com](https://YOUR-PAIR-SITE.onrender.com)
-2. Enter your WhatsApp number with country code (example: `917023951514`)
-3. Click **Generate Pair Code**
-4. On your phone open **WhatsApp → Settings → Linked devices → Link a device**
-5. Choose **Link with phone number instead** and enter the code
-6. After linking, you will receive a **session string** in your WhatsApp DM  
+1. Enter your WhatsApp number with country code (example: `917023951514`)
+2. Click **Generate Pair Code**
+3. On your phone open **WhatsApp → Settings → Linked devices → Link a device**
+4. Choose **Link with phone number instead** and enter the code
+5. After linking, you will receive a **session string** in your WhatsApp DM  
    (it starts with `KELLY-MD~...`)
 
 **After getting the session:**
