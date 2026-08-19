@@ -34,7 +34,7 @@ Connect your WhatsApp account using the pairing website.
 Click the button below to open the **KELLY-MD Pair Site**:
 
 <p align="center">
-  <a href="https://YOUR-PAIR-SITE.onrender.com" target="_blank">
+  <a href="https://kelly-md-bot.onrender.com" target="_blank">
     <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Easy%20Method-ff4d4d?style=for-the-badge" alt="Get Pair Code"/>
   </a>
 </p>
