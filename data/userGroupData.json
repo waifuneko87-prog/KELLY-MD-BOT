@@ -1,0 +1,13 @@
+{
+  "users": [],
+  "groups": [],
+  "antilink": {},
+  "antibadword": {},
+  "warnings": {},
+  "sudo": [],
+  "chatbot": {},
+  "welcome": {},
+  "goodbye": {},
+  "mention": {},
+  "autoReaction": false
+}
