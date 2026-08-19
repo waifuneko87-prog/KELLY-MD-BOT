@@ -143,11 +143,11 @@ npm run pair
 
 <p align="center">
   <a href="t.me/sonali_sewvandi" target="_blank">
-    <img src="https://img.shields.io/badge/JOIN%20TELEGRAM-2CA5E0?style=for-the-badge&logo=telegram" alt="Telegram"/>
+    <img src="https://img.shields.io/badge/CONTACT%20VIA%20TELEGRAM-2CA5E0?style=for-the-badge&logo=telegram" alt="Telegram"/>
   </a>
   &nbsp;
   <a href="https://wa.me/+966510806516" target="_blank">
-    <img src="https://img.shields.io/badge/JOIN%20WHATSAPP-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp"/>
+    <img src="https://img.shields.io/badge/CONTACT%VIA20%20WHATSAPP-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp"/>
   </a>
 </p>
 
